@@ -41,12 +41,18 @@ while capture.isOpened():
         ids = ids.flatten()
 
         for (markerCorner, markerID) in zip(corners, ids):
+            
+            # detect marker id only 90
             if markerID == 90:
 
                 corners = markerCorner.reshape((4, 2))
                 (topLeft, topRight, bottomRight, bottomLeft) = corners
+
+                # marker corner, real size (cm), cam_mtx, dist coeff
                 rvec , tvec, _ = cv2.aruco.estimatePoseSingleMarkers(markerCorner,14.1, cam_mtx, dist_coeff)
-                
+                # rcev : rotation vector
+                # tvec : translation vector
+
                 topRight = (int(topRight[0]), int(topRight[1]))
                 bottomRight = (int(bottomRight[0]), int(bottomRight[1]))
                 bottomLeft = (int(bottomLeft[0]), int(bottomLeft[1]))
